@@ -13,20 +13,20 @@ part of 'auth_entity.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$AuthModel {
+mixin _$AuthEntity {
 
  String get email; String get password;
-/// Create a copy of AuthModel
+/// Create a copy of AuthEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$AuthModelCopyWith<AuthModel> get copyWith => _$AuthModelCopyWithImpl<AuthModel>(this as AuthModel, _$identity);
+$AuthEntityCopyWith<AuthEntity> get copyWith => _$AuthEntityCopyWithImpl<AuthEntity>(this as AuthEntity, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthModel&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthEntity&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
 }
 
 
@@ -35,15 +35,15 @@ int get hashCode => Object.hash(runtimeType,email,password);
 
 @override
 String toString() {
-  return 'AuthModel(email: $email, password: $password)';
+  return 'AuthEntity(email: $email, password: $password)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $AuthModelCopyWith<$Res>  {
-  factory $AuthModelCopyWith(AuthModel value, $Res Function(AuthModel) _then) = _$AuthModelCopyWithImpl;
+abstract mixin class $AuthEntityCopyWith<$Res>  {
+  factory $AuthEntityCopyWith(AuthEntity value, $Res Function(AuthEntity) _then) = _$AuthEntityCopyWithImpl;
 @useResult
 $Res call({
  String email, String password
@@ -54,17 +54,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$AuthModelCopyWithImpl<$Res>
-    implements $AuthModelCopyWith<$Res> {
-  _$AuthModelCopyWithImpl(this._self, this._then);
+class _$AuthEntityCopyWithImpl<$Res>
+    implements $AuthEntityCopyWith<$Res> {
+  _$AuthEntityCopyWithImpl(this._self, this._then);
 
-  final AuthModel _self;
-  final $Res Function(AuthModel) _then;
+  final AuthEntity _self;
+  final $Res Function(AuthEntity) _then;
 
-/// Create a copy of AuthModel
+/// Create a copy of AuthEntity
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,}) {
-  return _then(AuthModel(
+  return _then(AuthEntity(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,

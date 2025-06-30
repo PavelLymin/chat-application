@@ -49,7 +49,7 @@ class _SignIn implements LoginEvent {
   const _SignIn({required this.authModel});
   
 
- final  AuthModel authModel;
+ final  AuthEntity authModel;
 
 /// Create a copy of LoginEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -81,11 +81,11 @@ abstract mixin class _$SignInCopyWith<$Res> implements $LoginEventCopyWith<$Res>
   factory _$SignInCopyWith(_SignIn value, $Res Function(_SignIn) _then) = __$SignInCopyWithImpl;
 @useResult
 $Res call({
- AuthModel authModel
+ AuthEntity authModel
 });
 
 
-$AuthModelCopyWith<$Res> get authModel;
+$AuthEntityCopyWith<$Res> get authModel;
 
 }
 /// @nodoc
@@ -101,7 +101,7 @@ class __$SignInCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? authModel = null,}) {
   return _then(_SignIn(
 authModel: null == authModel ? _self.authModel : authModel // ignore: cast_nullable_to_non_nullable
-as AuthModel,
+as AuthEntity,
   ));
 }
 
@@ -109,9 +109,9 @@ as AuthModel,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AuthModelCopyWith<$Res> get authModel {
+$AuthEntityCopyWith<$Res> get authModel {
   
-  return $AuthModelCopyWith<$Res>(_self.authModel, (value) {
+  return $AuthEntityCopyWith<$Res>(_self.authModel, (value) {
     return _then(_self.copyWith(authModel: value));
   });
 }
@@ -124,7 +124,7 @@ class _SignUp implements LoginEvent {
   const _SignUp({required this.authModel});
   
 
- final  AuthModel authModel;
+ final  AuthEntity authModel;
 
 /// Create a copy of LoginEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -156,11 +156,11 @@ abstract mixin class _$SignUpCopyWith<$Res> implements $LoginEventCopyWith<$Res>
   factory _$SignUpCopyWith(_SignUp value, $Res Function(_SignUp) _then) = __$SignUpCopyWithImpl;
 @useResult
 $Res call({
- AuthModel authModel
+ AuthEntity authModel
 });
 
 
-$AuthModelCopyWith<$Res> get authModel;
+$AuthEntityCopyWith<$Res> get authModel;
 
 }
 /// @nodoc
@@ -176,7 +176,7 @@ class __$SignUpCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? authModel = null,}) {
   return _then(_SignUp(
 authModel: null == authModel ? _self.authModel : authModel // ignore: cast_nullable_to_non_nullable
-as AuthModel,
+as AuthEntity,
   ));
 }
 
@@ -184,9 +184,9 @@ as AuthModel,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AuthModelCopyWith<$Res> get authModel {
+$AuthEntityCopyWith<$Res> get authModel {
   
-  return $AuthModelCopyWith<$Res>(_self.authModel, (value) {
+  return $AuthEntityCopyWith<$Res>(_self.authModel, (value) {
     return _then(_self.copyWith(authModel: value));
   });
 }

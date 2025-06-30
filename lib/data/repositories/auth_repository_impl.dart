@@ -8,7 +8,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl({required this.firebaseAuth});
 
   @override
-  Future<void> signIn({required AuthModel authModel}) async {
+  Future<void> signIn({required AuthEntity authModel}) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: authModel.email,
@@ -29,7 +29,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
-  Future<void> signUp({required AuthModel authModel}) async {
+  Future<void> signUp({required AuthEntity authModel}) async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
         email: authModel.email,

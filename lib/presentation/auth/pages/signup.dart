@@ -100,7 +100,7 @@ class _SignupState extends State<Signup> {
                           if (_formKey.currentState!.validate()) {
                             context.read<LoginBloc>().add(
                               LoginEvent.signUp(
-                                authModel: AuthModel(
+                                authModel: AuthEntity(
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                 ),
