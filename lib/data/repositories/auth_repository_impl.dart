@@ -1,4 +1,5 @@
-import 'package:client/core/auth_exception.dart';
+import 'package:client/core/exceptions.dart';
+import 'package:client/data/dtos/auth_dto/auth_dto.dart';
 import 'package:client/domain/entities/auth_entity/auth_entity.dart';
 import 'package:client/domain/repositories/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,11 +9,15 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl({required this.firebaseAuth});
 
   @override
+<<<<<<< Updated upstream
   Future<void> signIn({required AuthModel authModel}) async {
+=======
+  Future<void> signIn({required AuthEntity authEntity}) async {
+>>>>>>> Stashed changes
     try {
       await firebaseAuth.signInWithEmailAndPassword(
-        email: authModel.email,
-        password: authModel.password,
+        email: authEntity.email,
+        password: authEntity.password!,
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -29,12 +34,23 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
+<<<<<<< Updated upstream
   Future<void> signUp({required AuthModel authModel}) async {
+=======
+  Future<AuthEntity> signUp({required AuthEntity authEntity}) async {
+>>>>>>> Stashed changes
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
-        email: authModel.email,
-        password: authModel.password,
+      final result = await firebaseAuth.createUserWithEmailAndPassword(
+        email: authEntity.email,
+        password: authEntity.password!,
       );
+
+      if (result.user != null) {
+        final authEntity = AuthDto.fromUserFBAuth(result.user!).toDomain();
+        return authEntity;
+      }
+
+      throw AuthException('Пользователь не найден');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('Указанный пароль слишком слабый');

@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_dto.dart';
+part of 'user_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AuthDto _$AuthDtoFromJson(Map<String, dynamic> json) => AuthDto(
-  uid: json['uid'] as String?,
-  password: json['password'] as String?,
+UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
+  id: json['id'] as String?,
+  username: json['username'] as String,
   email: json['email'] as String,
 );
 
-Map<String, dynamic> _$AuthDtoToJson(AuthDto instance) => <String, dynamic>{
-  'uid': instance.uid,
+Map<String, dynamic> _$UserDtoToJson(UserDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'username': instance.username,
   'email': instance.email,
-  'password': instance.password,
 };

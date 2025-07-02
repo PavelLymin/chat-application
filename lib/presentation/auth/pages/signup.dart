@@ -104,6 +104,7 @@ class _SignupState extends State<Signup> {
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                 ),
+                                userName: _usernameController.text,
                               ),
                             );
                           }

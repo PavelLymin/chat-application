@@ -1,6 +1,8 @@
-import 'package:client/core/auth_exception.dart';
+import 'package:client/core/exceptions.dart';
 import 'package:client/domain/entities/auth_entity/auth_entity.dart';
+import 'package:client/domain/entities/user_entity/user_entity.dart';
 import 'package:client/domain/repositories/auth_repository.dart';
+import 'package:client/domain/repositories/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,10 +11,14 @@ part 'login_state.dart';
 part 'login_bloc.freezed.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final IAuthRepository _repository;
-  LoginBloc({required IAuthRepository repository})
-    : _repository = repository,
-      super(LoginState.initial()) {
+  final IAuthRepository _authRepository;
+  final IUserRepository _userRepository;
+  LoginBloc({
+    required IAuthRepository authRepository,
+    required IUserRepository userRepository,
+  }) : _authRepository = authRepository,
+       _userRepository = userRepository,
+       super(LoginState.initial()) {
     on<LoginEvent>((event, emit) async {
       switch (event) {
         case _SignIn():
@@ -28,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _signIn(_SignIn event, Emitter<LoginState> emit) async {
     emit(LoginState.loading());
     try {
-      await _repository.signIn(authModel: event.authModel);
+      await _authRepository.signIn(authEntity: event.authModel);
       emit(LoginState.success());
     } on AuthException catch (e) {
       emit(LoginState.failure(message: e.message));
@@ -40,9 +46,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _signUp(_SignUp event, Emitter<LoginState> emit) async {
     emit(LoginState.loading());
     try {
-      await _repository.signUp(authModel: event.authModel);
+      final result = await _authRepository.signUp(authEntity: event.authModel);
+      final userEntity = UserEntity(
+        id: result.uid,
+        username: event.userName,
+        email: result.email,
+      );
+      print(userEntity);
+      await _userRepository.addUser(userEntity: userEntity);
       emit(LoginState.success());
     } on AuthException catch (e) {
+      emit(LoginState.failure(message: e.message));
+    } on ApiException catch (e) {
       emit(LoginState.failure(message: e.message));
     } catch (e) {
       emit(LoginState.failure(message: e.toString()));
@@ -52,7 +67,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _signOut(Emitter<LoginState> emit) async {
     emit(LoginState.loading());
     try {
-      await _repository.signOut();
+      await _authRepository.signOut();
       emit(LoginState.success());
     } on AuthException catch (e) {
       emit(LoginState.failure(message: e.message));
