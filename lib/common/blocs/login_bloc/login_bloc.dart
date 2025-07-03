@@ -52,7 +52,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         username: event.userName,
         email: result.email,
       );
-      print(userEntity);
       await _userRepository.addUser(userEntity: userEntity);
       emit(LoginState.success());
     } on AuthException catch (e) {

@@ -92,7 +92,7 @@ class _SigninState extends State<Signin> {
                           if (_formKey.currentState!.validate()) {
                             context.read<LoginBloc>().add(
                               LoginEvent.signIn(
-                                authModel: AuthModel(
+                                authModel: AuthEntity(
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                 ),

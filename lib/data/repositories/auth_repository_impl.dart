@@ -9,11 +9,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl({required this.firebaseAuth});
 
   @override
-<<<<<<< Updated upstream
-  Future<void> signIn({required AuthModel authModel}) async {
-=======
   Future<void> signIn({required AuthEntity authEntity}) async {
->>>>>>> Stashed changes
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: authEntity.email,
@@ -34,11 +30,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
-<<<<<<< Updated upstream
-  Future<void> signUp({required AuthModel authModel}) async {
-=======
   Future<AuthEntity> signUp({required AuthEntity authEntity}) async {
->>>>>>> Stashed changes
     try {
       final result = await firebaseAuth.createUserWithEmailAndPassword(
         email: authEntity.email,
