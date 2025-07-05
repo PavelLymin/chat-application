@@ -1,34 +1,45 @@
+import 'dart:async';
 import 'dart:convert';
+
 import 'package:client/data/dtos/message_dto/message_dto.dart';
 import 'package:client/domain/entities/message_entity/message_entity.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WebsocketApi {
   late WebSocketChannel _channel;
+  Stream<dynamic> get stream => _channel.stream;
   WebsocketApi() {
-    _channel = _createWebSocketChannel();
+    _connect();
   }
 
-  WebSocketChannel _createWebSocketChannel() {
+  Stream<MessageEntity> get messageStream => _channel.stream
+      .where((data) => jsonDecode(data)['type'] == 'newMessage')
+      .map((data) {
+        final json = jsonDecode(data)['message'];
+        return MessageDto.fromJson(json).toDomain();
+      });
+
+  void _connect() {
     final wsUrl = Uri.parse('ws://localhost:3000');
-    final chanel = WebSocketChannel.connect(wsUrl);
-    return chanel;
+    _channel = WebSocketChannel.connect(wsUrl);
   }
 
-  Future<void> closeWebSocketChannel() async {
+  void joinToChat({required String chatId}) {
+    final messageMap = {'type': 'joinToChat', 'chat_id': chatId};
+    final json = jsonEncode(messageMap);
+    _channel.sink.add(json);
+  }
+
+  void sendMessage({required MessageEntity messageEntity}) {
+    final messageMap = {
+      'type': 'sendMessage',
+      'message': MessageDto.fromDomain(messageEntity).toJson(),
+    };
+    final json = jsonEncode(messageMap);
+    _channel.sink.add(json);
+  }
+
+  Future<void> closeConnection() async {
     await _channel.sink.close();
-  }
-
-  void handleWebSocketMessages() {
-    _channel.stream.listen((event) {
-      final json = jsonDecode(event);
-      if (json['type'] == 'message') {
-        print(MessageDto.fromJson(json).toDomain().message);
-      }
-    });
-  }
-
-  void sendMessage(MessageEntity message) {
-    _channel.sink.add(message.message);
   }
 }

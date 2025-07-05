@@ -1,4 +1,4 @@
-import 'package:client/core/auth_exception.dart';
+import 'package:client/core/exceptions.dart';
 import 'package:client/domain/entities/auth_entity/auth_entity.dart';
 import 'package:client/domain/repositories/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';

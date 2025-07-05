@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MessageEntity {
 
- String get message;
+ String? get id; String get chatId; String get senderId; String get content; DateTime? get createdAt;
 /// Create a copy of MessageEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $MessageEntityCopyWith<MessageEntity> get copyWith => _$MessageEntityCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageEntity&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.chatId, chatId) || other.chatId == chatId)&&(identical(other.senderId, senderId) || other.senderId == senderId)&&(identical(other.content, content) || other.content == content)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,message);
+int get hashCode => Object.hash(runtimeType,id,chatId,senderId,content,createdAt);
 
 @override
 String toString() {
-  return 'MessageEntity(message: $message)';
+  return 'MessageEntity(id: $id, chatId: $chatId, senderId: $senderId, content: $content, createdAt: $createdAt)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $MessageEntityCopyWith<$Res>  {
   factory $MessageEntityCopyWith(MessageEntity value, $Res Function(MessageEntity) _then) = _$MessageEntityCopyWithImpl;
 @useResult
 $Res call({
- String message
+ String? id, DateTime? createdAt, String chatId, String senderId, String content
 });
 
 
@@ -63,9 +63,13 @@ class _$MessageEntityCopyWithImpl<$Res>
 
 /// Create a copy of MessageEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? message = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? createdAt = freezed,Object? chatId = null,Object? senderId = null,Object? content = null,}) {
   return _then(MessageEntity(
-message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,chatId: null == chatId ? _self.chatId : chatId // ignore: cast_nullable_to_non_nullable
+as String,senderId: null == senderId ? _self.senderId : senderId // ignore: cast_nullable_to_non_nullable
+as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

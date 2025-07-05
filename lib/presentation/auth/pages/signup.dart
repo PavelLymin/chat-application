@@ -43,7 +43,7 @@ class _SignupState extends State<Signup> {
               ),
             );
           case Success():
-            context.router.replace(const Home());
+            context.router.replace(const Chat());
           case Loading():
           case Initial():
         }
