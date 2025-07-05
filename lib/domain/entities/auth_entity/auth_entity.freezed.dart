@@ -16,6 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$AuthEntity {
 
  String? get uid; String get email; String? get password;
+
 /// Create a copy of AuthEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,6 +28,7 @@ $AuthEntityCopyWith<AuthEntity> get copyWith => _$AuthEntityCopyWithImpl<AuthEnt
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthEntity&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
+
 }
 
 
@@ -36,6 +38,7 @@ int get hashCode => Object.hash(runtimeType,uid,email,password);
 @override
 String toString() {
   return 'AuthEntity(uid: $uid, email: $email, password: $password)';
+
 }
 
 
@@ -68,6 +71,7 @@ class _$AuthEntityCopyWithImpl<$Res>
 uid: freezed == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+
 as String,
   ));
 }

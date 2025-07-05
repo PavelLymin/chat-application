@@ -10,6 +10,7 @@ class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<void> signIn({required AuthEntity authEntity}) async {
+
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: authEntity.email,
@@ -31,6 +32,7 @@ class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<AuthEntity> signUp({required AuthEntity authEntity}) async {
+
     try {
       final result = await firebaseAuth.createUserWithEmailAndPassword(
         email: authEntity.email,

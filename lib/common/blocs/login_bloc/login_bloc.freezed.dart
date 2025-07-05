@@ -124,8 +124,7 @@ class _SignUp implements LoginEvent {
   const _SignUp({required this.authModel, required this.userName});
   
 
- final  AuthEntity authModel;
- final  String userName;
+ final  AuthModel authModel;
 
 /// Create a copy of LoginEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -157,7 +156,7 @@ abstract mixin class _$SignUpCopyWith<$Res> implements $LoginEventCopyWith<$Res>
   factory _$SignUpCopyWith(_SignUp value, $Res Function(_SignUp) _then) = __$SignUpCopyWithImpl;
 @useResult
 $Res call({
- AuthEntity authModel, String userName
+ AuthModel authModel
 });
 
 
@@ -177,8 +176,7 @@ class __$SignUpCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? authModel = null,Object? userName = null,}) {
   return _then(_SignUp(
 authModel: null == authModel ? _self.authModel : authModel // ignore: cast_nullable_to_non_nullable
-as AuthEntity,userName: null == userName ? _self.userName : userName // ignore: cast_nullable_to_non_nullable
-as String,
+as AuthModel,
   ));
 }
 

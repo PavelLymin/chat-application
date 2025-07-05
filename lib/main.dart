@@ -1,4 +1,7 @@
+import 'package:client/common/blocs/chat_bloc/bloc/chat_bloc.dart';
 import 'package:client/common/blocs/login_bloc/login_bloc.dart';
+import 'package:client/common/blocs/message_bloc/message_bloc.dart';
+import 'package:client/common/cubits/auth_cubit/auth_cubit.dart';
 import 'package:client/common/cubits/theme_cubit/theme_cubit.dart';
 import 'package:client/common/router/router.dart';
 import 'package:client/common/theme/theme.dart';
@@ -26,6 +29,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => GetIt.instance<LoginBloc>()),
         BlocProvider(create: (context) => GetIt.instance<ThemeCubit>()),
+        BlocProvider(create: (context) => GetIt.instance<AuthCubit>()),
+        BlocProvider(create: (context) => GetIt.instance<MessageBloc>()),
+        BlocProvider(create: (context) => GetIt.instance<ChatBloc>()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {

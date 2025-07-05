@@ -41,7 +41,7 @@ class _SigninState extends State<Signin> {
               ),
             );
           case Success():
-            context.router.replace(const Home());
+            context.router.replace(const Chat());
           case Loading():
           case Initial():
         }
