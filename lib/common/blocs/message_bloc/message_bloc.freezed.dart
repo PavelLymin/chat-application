@@ -186,6 +186,74 @@ $MessageEntityCopyWith<$Res> get messageEntity {
 /// @nodoc
 
 
+class _DeleteMessage implements MessageEvent {
+  const _DeleteMessage({required this.messageId, required this.chatId});
+  
+
+ final  String messageId;
+ final  String chatId;
+
+/// Create a copy of MessageEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DeleteMessageCopyWith<_DeleteMessage> get copyWith => __$DeleteMessageCopyWithImpl<_DeleteMessage>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeleteMessage&&(identical(other.messageId, messageId) || other.messageId == messageId)&&(identical(other.chatId, chatId) || other.chatId == chatId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,messageId,chatId);
+
+@override
+String toString() {
+  return 'MessageEvent.deleteMessage(messageId: $messageId, chatId: $chatId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DeleteMessageCopyWith<$Res> implements $MessageEventCopyWith<$Res> {
+  factory _$DeleteMessageCopyWith(_DeleteMessage value, $Res Function(_DeleteMessage) _then) = __$DeleteMessageCopyWithImpl;
+@useResult
+$Res call({
+ String messageId, String chatId
+});
+
+
+
+
+}
+/// @nodoc
+class __$DeleteMessageCopyWithImpl<$Res>
+    implements _$DeleteMessageCopyWith<$Res> {
+  __$DeleteMessageCopyWithImpl(this._self, this._then);
+
+  final _DeleteMessage _self;
+  final $Res Function(_DeleteMessage) _then;
+
+/// Create a copy of MessageEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? messageId = null,Object? chatId = null,}) {
+  return _then(_DeleteMessage(
+messageId: null == messageId ? _self.messageId : messageId // ignore: cast_nullable_to_non_nullable
+as String,chatId: null == chatId ? _self.chatId : chatId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
 class _ReceivedMessage implements MessageEvent {
   const _ReceivedMessage({required this.messageEntity});
   
@@ -211,7 +279,7 @@ int get hashCode => Object.hash(runtimeType,messageEntity);
 
 @override
 String toString() {
-  return 'MessageEvent.receivedMessage(messageEntity: $messageEntity)';
+  return 'MessageEvent._receivedMessage(messageEntity: $messageEntity)';
 }
 
 
@@ -256,6 +324,78 @@ $MessageEntityCopyWith<$Res> get messageEntity {
     return _then(_self.copyWith(messageEntity: value));
   });
 }
+}
+
+/// @nodoc
+
+
+class _ReceivedMessages implements MessageEvent {
+  const _ReceivedMessages({required final  List<MessageEntity> messages}): _messages = messages;
+  
+
+ final  List<MessageEntity> _messages;
+ List<MessageEntity> get messages {
+  if (_messages is EqualUnmodifiableListView) return _messages;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_messages);
+}
+
+
+/// Create a copy of MessageEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ReceivedMessagesCopyWith<_ReceivedMessages> get copyWith => __$ReceivedMessagesCopyWithImpl<_ReceivedMessages>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReceivedMessages&&const DeepCollectionEquality().equals(other._messages, _messages));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_messages));
+
+@override
+String toString() {
+  return 'MessageEvent._receivedMessages(messages: $messages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ReceivedMessagesCopyWith<$Res> implements $MessageEventCopyWith<$Res> {
+  factory _$ReceivedMessagesCopyWith(_ReceivedMessages value, $Res Function(_ReceivedMessages) _then) = __$ReceivedMessagesCopyWithImpl;
+@useResult
+$Res call({
+ List<MessageEntity> messages
+});
+
+
+
+
+}
+/// @nodoc
+class __$ReceivedMessagesCopyWithImpl<$Res>
+    implements _$ReceivedMessagesCopyWith<$Res> {
+  __$ReceivedMessagesCopyWithImpl(this._self, this._then);
+
+  final _ReceivedMessages _self;
+  final $Res Function(_ReceivedMessages) _then;
+
+/// Create a copy of MessageEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? messages = null,}) {
+  return _then(_ReceivedMessages(
+messages: null == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
+as List<MessageEntity>,
+  ));
+}
+
+
 }
 
 /// @nodoc

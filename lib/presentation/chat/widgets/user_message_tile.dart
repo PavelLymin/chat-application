@@ -1,24 +1,22 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:client/common/api/websocket.dart';
+import 'package:client/common/blocs/chat_bloc/bloc/chat_bloc.dart';
 import 'package:client/common/router/router.gr.dart';
 import 'package:client/domain/entities/chat_entity/chat_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MessageTile extends StatelessWidget {
-  const MessageTile({super.key, required this.chatEntity});
+class UserMessageTile extends StatelessWidget {
+  const UserMessageTile({super.key, required this.chatEntity});
   final ChatEntity chatEntity;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GetIt.instance<WebsocketApi>().joinToChat(
-          chatId: 'e70730b1-926a-4d71-8e21-e20a3f079e1b',
+        context.read<ChatBloc>().add(
+          ChatEvent.joinToChat(chatId: chatEntity.id),
         );
-        context.router.replace(
-          Message(chatId: 'e70730b1-926a-4d71-8e21-e20a3f079e1b'),
-        );
+        context.router.replace(Message(chatId: chatEntity.id));
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
@@ -27,8 +25,11 @@ class MessageTile extends StatelessWidget {
         ),
         leading: const CircleAvatar(radius: 30),
         title: Text(chatEntity.participantName),
-        subtitle: Text(chatEntity.lastMessage, overflow: TextOverflow.ellipsis),
-        trailing: Text(chatEntity.lastMessageTime.timeZoneName),
+        subtitle: Text(
+          chatEntity.lastMessage ?? '',
+          overflow: TextOverflow.ellipsis,
+        ),
+        trailing: Text(chatEntity.lastMessageTime?.timeZoneName ?? ''),
       ),
     );
   }

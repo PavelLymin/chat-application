@@ -66,9 +66,9 @@ class _MessageState extends State<Message> {
                       itemBuilder: (context, index) {
                         final message = state.messages[index];
                         if (message.senderId == senderId) {
-                          return SentMessage(message: message.content);
+                          return SentMessage(message: message);
                         } else {
-                          return ReceiveMessage(message: message.content);
+                          return ReceiveMessage(message: message);
                         }
                       },
                     );

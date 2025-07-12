@@ -7,11 +7,13 @@ import 'package:dio/dio.dart';
 class MessageRepositoryImpl implements IMessageRepository {
   MessageRepositoryImpl();
   final dio = Dio();
+  final baseUrl = 'http://localhost:3000/message/';
+
   @override
   Future<List<MessageEntity>> fetchMessages({required String chatId}) async {
     try {
       Response response = await dio.get(
-        'http://localhost:3000/chat/allMessages',
+        '${baseUrl}allMessages',
         queryParameters: {'id': chatId},
       );
       final List<dynamic> data = response.data;

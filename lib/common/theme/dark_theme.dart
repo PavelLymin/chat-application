@@ -8,14 +8,21 @@ ThemeData createDarkTheme() {
     textTheme: createTextTheme(),
     progressIndicatorTheme: ProgressIndicatorThemeData(color: AppColors.grey),
     switchTheme: SwitchThemeData(
-      thumbColor: WidgetStateProperty.all(AppColors.black),
-      trackColor: WidgetStateProperty.all(AppColors.white),
-      trackOutlineColor: WidgetStateProperty.all(AppColors.white),
+      thumbColor: WidgetStatePropertyAll(AppColors.black),
+      trackColor: WidgetStatePropertyAll(AppColors.white),
+      trackOutlineColor: WidgetStatePropertyAll(AppColors.white),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStatePropertyAll(AppColors.black),
+      checkColor: WidgetStatePropertyAll(AppColors.white),
+      side: WidgetStateBorderSide.resolveWith(
+        (states) => BorderSide(width: 1, color: AppColors.white),
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(AppColors.white),
-        foregroundColor: WidgetStateProperty.all(AppColors.black),
+        backgroundColor: WidgetStatePropertyAll(AppColors.white),
+        foregroundColor: WidgetStatePropertyAll(AppColors.black),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(

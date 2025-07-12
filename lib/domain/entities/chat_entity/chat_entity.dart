@@ -6,15 +6,15 @@ class ChatEntity with _$ChatEntity {
   ChatEntity({
     required this.id,
     required this.participantName,
-    required this.lastMessage,
-    required this.lastMessageTime,
+    this.lastMessage,
+    this.lastMessageTime,
   });
   @override
   final String id;
   @override
   final String participantName;
   @override
-  final String lastMessage;
+  final String? lastMessage;
   @override
-  final DateTime lastMessageTime;
+  final DateTime? lastMessageTime;
 }

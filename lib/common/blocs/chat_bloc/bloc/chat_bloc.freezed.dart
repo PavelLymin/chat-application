@@ -65,7 +65,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ChatEvent.fetchConversations()';
+  return 'ChatEvent.fetchChats()';
 }
 
 
@@ -73,6 +73,72 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _JoinToChat implements ChatEvent {
+  const _JoinToChat({required this.chatId});
+  
+
+ final  String chatId;
+
+/// Create a copy of ChatEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$JoinToChatCopyWith<_JoinToChat> get copyWith => __$JoinToChatCopyWithImpl<_JoinToChat>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JoinToChat&&(identical(other.chatId, chatId) || other.chatId == chatId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,chatId);
+
+@override
+String toString() {
+  return 'ChatEvent.joinToChat(chatId: $chatId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$JoinToChatCopyWith<$Res> implements $ChatEventCopyWith<$Res> {
+  factory _$JoinToChatCopyWith(_JoinToChat value, $Res Function(_JoinToChat) _then) = __$JoinToChatCopyWithImpl;
+@useResult
+$Res call({
+ String chatId
+});
+
+
+
+
+}
+/// @nodoc
+class __$JoinToChatCopyWithImpl<$Res>
+    implements _$JoinToChatCopyWith<$Res> {
+  __$JoinToChatCopyWithImpl(this._self, this._then);
+
+  final _JoinToChat _self;
+  final $Res Function(_JoinToChat) _then;
+
+/// Create a copy of ChatEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? chatId = null,}) {
+  return _then(_JoinToChat(
+chatId: null == chatId ? _self.chatId : chatId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$ChatState {

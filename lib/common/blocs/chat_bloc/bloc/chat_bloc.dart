@@ -1,3 +1,4 @@
+import 'package:client/common/api/websocket.dart';
 import 'package:client/core/exceptions.dart';
 import 'package:client/domain/repositories/chat_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,13 +11,19 @@ part 'chat_bloc.freezed.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final IChatRepository _chatRepository;
-  ChatBloc({required IChatRepository chatRepository})
-    : _chatRepository = chatRepository,
-      super(ChatState.initial()) {
+  final WebsocketApi _websocketApi;
+  ChatBloc({
+    required IChatRepository chatRepository,
+    required WebsocketApi websocketApi,
+  }) : _chatRepository = chatRepository,
+       _websocketApi = websocketApi,
+       super(ChatState.initial()) {
     on<ChatEvent>((event, emit) async {
       switch (event) {
         case _FetchChats():
           await _fetchChats(emit);
+        case _JoinToChat():
+          await _joinToChat(emit, event);
       }
     });
   }
@@ -30,6 +37,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatState.failure(message: e.message));
     } on AuthException catch (e) {
       emit(ChatState.failure(message: e.message));
+    }
+  }
+
+  Future<void> _joinToChat(Emitter<ChatState> emit, _JoinToChat event) async {
+    try {
+      _websocketApi.joinToChat(chatId: event.chatId);
+    } catch (e) {
+      emit(ChatState.failure(message: e.toString()));
     }
   }
 }

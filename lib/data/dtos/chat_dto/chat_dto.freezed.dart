@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatDto {
 
- String get id; String get participantName; String get lastMessage; DateTime get lastMessageTime;
+ String get id; String get participantName; String? get lastMessage; DateTime? get lastMessageTime;
 /// Create a copy of ChatDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -47,7 +47,7 @@ abstract mixin class $ChatDtoCopyWith<$Res>  {
   factory $ChatDtoCopyWith(ChatDto value, $Res Function(ChatDto) _then) = _$ChatDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, String participantName, String lastMessage, DateTime lastMessageTime
+ String id, String participantName, String? lastMessage, DateTime? lastMessageTime
 });
 
 
@@ -64,13 +64,13 @@ class _$ChatDtoCopyWithImpl<$Res>
 
 /// Create a copy of ChatDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? participantName = null,Object? lastMessage = null,Object? lastMessageTime = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? participantName = null,Object? lastMessage = freezed,Object? lastMessageTime = freezed,}) {
   return _then(ChatDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,participantName: null == participantName ? _self.participantName : participantName // ignore: cast_nullable_to_non_nullable
-as String,lastMessage: null == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
-as String,lastMessageTime: null == lastMessageTime ? _self.lastMessageTime : lastMessageTime // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as String,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
+as String?,lastMessageTime: freezed == lastMessageTime ? _self.lastMessageTime : lastMessageTime // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 

@@ -10,8 +10,8 @@ class ChatDto with _$ChatDto {
   ChatDto({
     required this.id,
     required this.participantName,
-    required this.lastMessage,
-    required this.lastMessageTime,
+    this.lastMessage,
+    this.lastMessageTime,
   });
   @override
   @JsonKey(name: 'chat_id')
@@ -21,10 +21,10 @@ class ChatDto with _$ChatDto {
   final String participantName;
   @override
   @JsonKey(name: 'last_message')
-  final String lastMessage;
+  final String? lastMessage;
   @override
   @JsonKey(name: 'last_message_time')
-  final DateTime lastMessageTime;
+  final DateTime? lastMessageTime;
 
   ChatEntity toDomain() => ChatEntity(
     id: id,

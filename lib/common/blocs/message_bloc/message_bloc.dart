@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:client/common/api/response_message.dart';
 import 'package:client/common/api/websocket.dart';
 import 'package:client/core/exceptions.dart';
 import 'package:client/domain/entities/message_entity/message_entity.dart';
@@ -21,23 +23,41 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   }) : _messageRepository = messageRepository,
        _websocketApi = websocketApi,
        super(MessageState.initial()) {
-    _websocketApi.messageStream.listen(
-      (message) => add(MessageEvent.receivedMessage(messageEntity: message)),
-      onError: (error) =>
-          add(MessageEvent._addFailureState(message: error.toString())),
-    );
+    _websocketApi.stream.listen((message) {
+      final json = jsonDecode(message);
+      final response = ResponseMessage.fromJson(json);
+      handleResponse(response);
+    });
     on<MessageEvent>((event, emit) async {
       switch (event) {
         case _LoadMessages():
           await _loadMessage(emit, event);
         case _SendMessage():
           await _sendMessage(emit, event);
+        case _DeleteMessage():
+          await _deleteMessage(emit, event);
         case _ReceivedMessage():
           await _receivedMessage(emit, event);
+        case _ReceivedMessages():
+          await _receivedMessages(emit, event);
         case _AddFailureState():
           _addFailureState(emit, event);
       }
     });
+  }
+
+  void handleResponse(ResponseMessage response) {
+    switch (response) {
+      case NewMessage():
+        add(
+          MessageEvent._receivedMessage(messageEntity: response.messageEntity),
+        );
+      case DeleteMessage():
+        _messages.removeWhere((message) => message.id == response.id);
+        add(MessageEvent._receivedMessages(messages: List.from(_messages)));
+      case Error():
+        add(MessageEvent._addFailureState(message: response.message));
+    }
   }
 
   Future<void> _loadMessage(
@@ -51,8 +71,6 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       );
       _messages.clear();
       _messages.addAll(messages);
-      // передаю новый объект List, так как BloC сравнивает
-      // сслыки объектов и поэтому он бы не обновил интерфейс
       emit(MessageState.loaded(messages: List.from(_messages)));
     } on ApiException catch (e) {
       emit(MessageState.failure(message: e.message));
@@ -64,8 +82,21 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     _SendMessage event,
   ) async {
     try {
-      final messageEntity = event.messageEntity;
-      _websocketApi.sendMessage(messageEntity: messageEntity);
+      _websocketApi.sendMessage(messageEntity: event.messageEntity);
+    } on ApiException catch (e) {
+      emit(MessageState.failure(message: e.message));
+    }
+  }
+
+  Future<void> _deleteMessage(
+    Emitter<MessageState> emit,
+    _DeleteMessage event,
+  ) async {
+    try {
+      _websocketApi.deleteMessage(
+        messageId: event.messageId,
+        chatId: event.chatId,
+      );
     } on ApiException catch (e) {
       emit(MessageState.failure(message: e.message));
     }
@@ -77,6 +108,13 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   ) async {
     _messages.add(event.messageEntity);
     emit(MessageState.loaded(messages: List.from(_messages)));
+  }
+
+  Future<void> _receivedMessages(
+    Emitter<MessageState> emit,
+    _ReceivedMessages event,
+  ) async {
+    emit(MessageState.loaded(messages: event.messages));
   }
 
   void _addFailureState(

@@ -21,8 +21,8 @@ void setup() {
   _userInit();
   _loginInit();
   _authInit();
-  _chatInit();
   _websocketInit();
+  _chatInit();
   _messageInit();
 }
 
@@ -55,18 +55,21 @@ void _authInit() {
   GetIt.I.registerLazySingleton<AuthCubit>(() => AuthCubit());
 }
 
+void _websocketInit() {
+  GetIt.I.registerLazySingleton<WebsocketApi>(() => WebsocketApi());
+}
+
 void _chatInit() {
   GetIt.I.registerLazySingleton<IChatRepository>(
     () => ChatRepositoryImpl(firebaseAuth: GetIt.instance<FirebaseAuth>()),
   );
 
   GetIt.I.registerLazySingleton<ChatBloc>(
-    () => ChatBloc(chatRepository: GetIt.instance<IChatRepository>()),
+    () => ChatBloc(
+      chatRepository: GetIt.instance<IChatRepository>(),
+      websocketApi: GetIt.instance<WebsocketApi>(),
+    ),
   );
-}
-
-void _websocketInit() {
-  GetIt.I.registerLazySingleton<WebsocketApi>(() => WebsocketApi());
 }
 
 void _messageInit() {

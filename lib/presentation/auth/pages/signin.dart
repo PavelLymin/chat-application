@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:client/common/blocs/login_bloc/login_bloc.dart';
 import 'package:client/common/router/router.gr.dart';
+import 'package:client/common/widgets/checkbox.dart';
 import 'package:client/common/widgets/switch_theme.dart';
 import 'package:client/common/widgets/text_form_field.dart';
 import 'package:client/core/validator.dart';
@@ -21,6 +22,7 @@ class _SigninState extends State<Signin> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   @override
   void dispose() {
@@ -63,19 +65,33 @@ class _SigninState extends State<Signin> {
                   child: Center(
                     child: SingleChildScrollView(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BaseTextFormField(
+                          BasicTextFormField(
                             controller: _emailController,
                             hintText: 'E-mail адрес',
                             validator: (value) => Validator.emailCheck(value!),
                           ),
                           const SizedBox(height: 10),
-                          BaseTextFormField(
+                          BasicTextFormField(
                             controller: _passwordController,
+                            obscureText: _obscureText,
                             hintText: 'Пароль',
                             validator: (value) =>
                                 Validator.passwordCheck(value!),
+                          ),
+                          Row(
+                            children: [
+                              const Text('Показать пароль'),
+                              BasicCheckbox(
+                                value: !_obscureText,
+                                onChanged: (_) {
+                                  setState(() {
+                                    _obscureText = !_obscureText;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
