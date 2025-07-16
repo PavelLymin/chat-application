@@ -8,4 +8,5 @@ abstract class AppColors {
   static const black = Colors.black;
   static const red = Colors.red;
   static const grey = Colors.grey;
+  static const transparent = Colors.transparent;
 }

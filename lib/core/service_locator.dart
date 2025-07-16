@@ -2,6 +2,7 @@ import 'package:client/common/api/websocket.dart';
 import 'package:client/common/blocs/chat_bloc/bloc/chat_bloc.dart';
 import 'package:client/common/blocs/login_bloc/login_bloc.dart';
 import 'package:client/common/blocs/message_bloc/message_bloc.dart';
+import 'package:client/common/blocs/user_bloc/user_bloc.dart';
 import 'package:client/common/cubits/auth_cubit/auth_cubit.dart';
 import 'package:client/common/cubits/theme_cubit/theme_cubit.dart';
 import 'package:client/data/repositories/auth_repository_impl.dart';
@@ -35,7 +36,13 @@ void _firebaseAuthInit() {
 }
 
 void _userInit() {
-  GetIt.I.registerLazySingleton<IUserRepository>(() => UserRepositoryImpl());
+  GetIt.I.registerLazySingleton<IUserRepository>(
+    () => UserRepositoryImpl(firebaseAuth: GetIt.instance<FirebaseAuth>()),
+  );
+
+  GetIt.I.registerLazySingleton<UserBloc>(
+    () => UserBloc(userRepository: GetIt.instance<IUserRepository>()),
+  );
 }
 
 void _loginInit() {

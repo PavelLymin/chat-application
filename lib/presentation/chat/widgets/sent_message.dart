@@ -12,6 +12,7 @@ class SentMessage extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: BubbleMessage(
+        needDelete: true,
         messageId: message.id!,
         chatId: message.chatId,
         widget: Container(

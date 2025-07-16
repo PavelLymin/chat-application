@@ -141,6 +141,72 @@ as String,
 }
 
 /// @nodoc
+
+
+class _CreateChat implements ChatEvent {
+  const _CreateChat({required this.participantId});
+  
+
+ final  String participantId;
+
+/// Create a copy of ChatEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CreateChatCopyWith<_CreateChat> get copyWith => __$CreateChatCopyWithImpl<_CreateChat>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateChat&&(identical(other.participantId, participantId) || other.participantId == participantId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,participantId);
+
+@override
+String toString() {
+  return 'ChatEvent.createChat(participantId: $participantId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CreateChatCopyWith<$Res> implements $ChatEventCopyWith<$Res> {
+  factory _$CreateChatCopyWith(_CreateChat value, $Res Function(_CreateChat) _then) = __$CreateChatCopyWithImpl;
+@useResult
+$Res call({
+ String participantId
+});
+
+
+
+
+}
+/// @nodoc
+class __$CreateChatCopyWithImpl<$Res>
+    implements _$CreateChatCopyWith<$Res> {
+  __$CreateChatCopyWithImpl(this._self, this._then);
+
+  final _CreateChat _self;
+  final $Res Function(_CreateChat) _then;
+
+/// Create a copy of ChatEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? participantId = null,}) {
+  return _then(_CreateChat(
+participantId: null == participantId ? _self.participantId : participantId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$ChatState {
 
 
@@ -168,38 +234,6 @@ String toString() {
 class $ChatStateCopyWith<$Res>  {
 $ChatStateCopyWith(ChatState _, $Res Function(ChatState) __);
 }
-
-
-/// @nodoc
-
-
-class Initial implements ChatState {
-  const Initial();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ChatState.initial()';
-}
-
-
-}
-
-
 
 
 /// @nodoc

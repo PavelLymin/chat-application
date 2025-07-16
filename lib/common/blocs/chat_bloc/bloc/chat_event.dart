@@ -4,4 +4,6 @@ part of 'chat_bloc.dart';
 sealed class ChatEvent with _$ChatEvent {
   const factory ChatEvent.fetchChats() = _FetchChats;
   const factory ChatEvent.joinToChat({required String chatId}) = _JoinToChat;
+  const factory ChatEvent.createChat({required String participantId}) =
+      _CreateChat;
 }

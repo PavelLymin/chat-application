@@ -16,7 +16,9 @@ class UserMessageTile extends StatelessWidget {
         context.read<ChatBloc>().add(
           ChatEvent.joinToChat(chatId: chatEntity.id),
         );
-        context.router.replace(Message(chatId: chatEntity.id));
+        context.router.replace(
+          Message(chatId: chatEntity.id, username: chatEntity.participantName),
+        );
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(

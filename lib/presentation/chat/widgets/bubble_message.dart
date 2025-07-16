@@ -2,26 +2,41 @@ import 'package:client/common/blocs/message_bloc/message_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BubbleMessage extends StatelessWidget {
-  BubbleMessage({
+class BubbleMessage extends StatefulWidget {
+  const BubbleMessage({
     super.key,
+    required this.needDelete,
     required this.widget,
     required this.messageId,
     required this.chatId,
   });
+  final bool needDelete;
   final String messageId;
   final String chatId;
   final Widget widget;
-  final options = <PopupMenuEntry<dynamic>>[
-    PopupMenuItem(
-      value: 'Удалить',
-      child: ListTile(title: Text('Удалить')),
-    ),
-    PopupMenuItem(
-      value: 'Скопировать',
-      child: ListTile(title: Text('Скопировать')),
-    ),
-  ];
+
+  @override
+  State<BubbleMessage> createState() => _BubbleMessageState();
+}
+
+class _BubbleMessageState extends State<BubbleMessage> {
+  final options = <PopupMenuEntry<dynamic>>[];
+
+  @override
+  void initState() {
+    super.initState();
+    options.addAll(<PopupMenuEntry<dynamic>>[
+      if (widget.needDelete)
+        PopupMenuItem(
+          value: 'Удалить',
+          child: ListTile(title: Text('Удалить')),
+        ),
+      PopupMenuItem(
+        value: 'Скопировать',
+        child: ListTile(title: Text('Скопировать')),
+      ),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +51,16 @@ class BubbleMessage extends StatelessWidget {
         ) {
           if (value == 'Удалить' && context.mounted) {
             context.read<MessageBloc>().add(
-              MessageEvent.deleteMessage(messageId: messageId, chatId: chatId),
+              MessageEvent.deleteMessage(
+                messageId: widget.messageId,
+                chatId: widget.chatId,
+              ),
             );
           }
           if (value == 'Скопировать') {}
         });
       },
-      child: widget,
+      child: widget.widget,
     );
   }
 }

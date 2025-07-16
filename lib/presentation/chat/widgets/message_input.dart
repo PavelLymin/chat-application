@@ -1,5 +1,7 @@
 import 'package:client/common/blocs/message_bloc/message_bloc.dart';
 import 'package:client/common/theme/theme.dart';
+import 'package:client/common/widgets/text_field.dart';
+import 'package:client/core/extensions/build_context_ext.dart';
 import 'package:client/domain/entities/message_entity/message_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,11 +31,18 @@ class MessageInput extends StatelessWidget {
           GestureDetector(child: Icon(Icons.camera_alt), onTap: () {}),
           const SizedBox(width: 10),
           Expanded(
-            child: TextField(
+            child: BasicTextField(
               controller: controller,
-              decoration: InputDecoration(
-                hintText: 'Сообщение',
-                border: InputBorder.none,
+              hintText: 'Сообщение',
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: context.color.borderInputTextColor,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: context.color.borderInputTextColor,
+                ),
               ),
             ),
           ),

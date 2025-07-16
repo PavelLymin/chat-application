@@ -2,14 +2,13 @@ import 'package:client/common/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class ThemeColors extends ThemeExtension<ThemeColors> {
-  final Color filterButtonFillColor;
-  const ThemeColors({required this.filterButtonFillColor});
+  final Color borderInputTextColor;
+  const ThemeColors({required this.borderInputTextColor});
 
   @override
-  ThemeExtension<ThemeColors> copyWith({Color? filterButtonFillColor}) {
+  ThemeExtension<ThemeColors> copyWith({Color? borderInputTextColor}) {
     return ThemeColors(
-      filterButtonFillColor:
-          filterButtonFillColor ?? this.filterButtonFillColor,
+      borderInputTextColor: borderInputTextColor ?? this.borderInputTextColor,
     );
   }
 
@@ -21,15 +20,15 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
     if (other is! ThemeColors) return this;
 
     return ThemeColors(
-      filterButtonFillColor: Color.lerp(
-        filterButtonFillColor,
-        other.filterButtonFillColor,
+      borderInputTextColor: Color.lerp(
+        borderInputTextColor,
+        other.borderInputTextColor,
         t,
       )!,
     );
   }
 
-  static get light => ThemeColors(filterButtonFillColor: AppColors.black);
+  static get light => ThemeColors(borderInputTextColor: AppColors.transparent);
 
-  static get dark => ThemeColors(filterButtonFillColor: AppColors.white);
+  static get dark => ThemeColors(borderInputTextColor: AppColors.transparent);
 }

@@ -6,6 +6,7 @@ ThemeData createDarkTheme() {
     scaffoldBackgroundColor: AppColors.black,
     hintColor: AppColors.white,
     textTheme: createTextTheme(),
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.black),
     progressIndicatorTheme: ProgressIndicatorThemeData(color: AppColors.grey),
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStatePropertyAll(AppColors.black),

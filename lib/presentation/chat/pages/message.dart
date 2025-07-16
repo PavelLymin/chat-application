@@ -10,8 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class Message extends StatefulWidget {
-  const Message({super.key, required this.chatId});
+  const Message({super.key, required this.chatId, required this.username});
   final String chatId;
+  final String username;
 
   @override
   State<Message> createState() => _MessageState();
@@ -44,8 +45,12 @@ class _MessageState extends State<Message> {
             context.router.replace(const Chat());
           },
         ),
-        title: const Row(
-          children: [CircleAvatar(), SizedBox(width: 10), Text('Вадим')],
+        title: Row(
+          children: [
+            const CircleAvatar(),
+            const SizedBox(width: 10),
+            Text(widget.username),
+          ],
         ),
         elevation: 0,
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],

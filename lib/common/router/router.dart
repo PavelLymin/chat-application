@@ -5,9 +5,16 @@ import 'package:client/common/router/router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: Signup.page),
+    AutoRoute(initial: true, page: Signup.page),
     AutoRoute(page: Signin.page),
-    AutoRoute(initial: true, page: Chat.page),
     AutoRoute(page: Message.page),
+    AutoRoute(page: SearchUsers.page),
+    AutoRoute(
+      page: RootRoute.page,
+      children: [
+        AutoRoute(page: Chat.page),
+        AutoRoute(page: Profile.page),
+      ],
+    ),
   ];
 }

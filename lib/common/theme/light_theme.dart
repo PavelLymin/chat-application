@@ -6,6 +6,7 @@ ThemeData createLightTheme() {
     scaffoldBackgroundColor: AppColors.white,
     hintColor: AppColors.white,
     textTheme: createTextTheme(),
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.white),
     progressIndicatorTheme: ProgressIndicatorThemeData(color: AppColors.grey),
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStatePropertyAll(AppColors.white),
@@ -43,6 +44,6 @@ ThemeData createLightTheme() {
         borderRadius: BorderRadius.circular(25),
       ),
     ),
-    extensions: [ThemeColors.dark],
+    extensions: [ThemeColors.light],
   );
 }

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:client/common/blocs/chat_bloc/bloc/chat_bloc.dart';
+import 'package:client/common/router/router.gr.dart';
 import 'package:client/common/theme/theme.dart';
 import 'package:client/presentation/chat/widgets/recent_contact.dart';
 import 'package:client/presentation/chat/widgets/user_message_tile.dart';
@@ -27,7 +28,14 @@ class _ChatState extends State<Chat> {
       appBar: AppBar(
         title: Text('Chat'),
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.router.replace(SearchUsers());
+            },
+            icon: Icon(Icons.search),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,8 +65,6 @@ class _ChatState extends State<Chat> {
               child: BlocBuilder<ChatBloc, ChatState>(
                 builder: (context, state) {
                   switch (state) {
-                    case Initial():
-                      return Container();
                     case Loading():
                       return const Center(child: CircularProgressIndicator());
                     case Loaded():

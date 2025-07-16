@@ -17,13 +17,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required WebsocketApi websocketApi,
   }) : _chatRepository = chatRepository,
        _websocketApi = websocketApi,
-       super(ChatState.initial()) {
+       super(ChatState.loading()) {
     on<ChatEvent>((event, emit) async {
       switch (event) {
         case _FetchChats():
           await _fetchChats(emit);
         case _JoinToChat():
           await _joinToChat(emit, event);
+        case _CreateChat():
+          await _createChat(emit, event);
       }
     });
   }
@@ -35,8 +37,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatState.loaded(chats: chats));
     } on ApiException catch (e) {
       emit(ChatState.failure(message: e.message));
-    } on AuthException catch (e) {
-      emit(ChatState.failure(message: e.message));
     }
   }
 
@@ -45,6 +45,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       _websocketApi.joinToChat(chatId: event.chatId);
     } catch (e) {
       emit(ChatState.failure(message: e.toString()));
+    }
+  }
+
+  Future<void> _createChat(Emitter<ChatState> emit, _CreateChat event) async {
+    emit(ChatState.loading());
+    try {
+      await _chatRepository.createChat(participantId: event.participantId);
+      add(ChatEvent.fetchChats());
+    } on ApiException catch (e) {
+      emit(ChatState.failure(message: e.message));
     }
   }
 }
